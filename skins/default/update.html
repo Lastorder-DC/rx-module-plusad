@@ -1,0 +1,37 @@
+<!--#include("_header.html")-->
+<load target="css/default.css" /><!--//css로드-->
+
+<h2>광고 수정</h2>
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form id="insert_form" action="./" method="post" ruleset="insert_ad"> 
+	<input type="hidden" name="act" value="procPlusadUpdate" /> 
+	<input type="hidden" name="ad_srl" value="{$ad_srl}" /> 
+	
+	<div class="plusad_div_line"></div>
+	<label for="ad_content">광고내용 </label>
+	<input type="text" name="ad_content" id="ad_content" class="plusad_form_box plusad_effect" style="width:350px;" placeholder="한줄 광고 내용을 입력해주세요" value="{$ad_content}" />
+	<br/>
+	
+	<div class="plusad_div_line"></div>
+	<label for="ad_url">링크주소 </label>
+	<input type="text" name="ad_url" id="ad_url" class="plusad_form_box plusad_effect" style="width:350px;" placeholder="http:// 를 포함한 주소를 입력해주세요" value="{$ad_url}" /> 
+	<br/>
+	
+	
+	<div class="plusad_div_line"></div>
+	{@ $oPointModel = getModel('point'); $point = $oPointModel->getPoint($logged_info->member_srl); }
+	<label for="now_point">현재포인트 </label>
+	<input type="text" name="now_point" id="now_point" class="plusad_form_box plusad_effect" style="width:60px; background:#eee" value="{$point}" disabled="disabled" />
+	
+	<div class="plusad_div_line"></div>
+	<input type="submit" class="plusad_btn_blue" value="수정완료" />
+</form> 
+<a href="{getUrl('act','dispPlusadlistuser')}"><button class="plusad_btn_red">뒤로</button></a> 
+
+
+<div style="clear:both;">
+<!--#include("_footer.html")-->
+</div>

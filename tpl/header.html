@@ -1,0 +1,21 @@
+<!--//모듈소개-->
+<div class="x_page-header">
+	<h1>광고등록 모듈
+		<span class="path" cond="$module_info->mid">
+			&gt; <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" target="_blank"|cond="$module=='admin'">{$module_info->mid}</a>
+		</span>
+		<a href="#aboutModule" data-toggle class="x_icon-question-sign"></a>
+	</h1>
+</div>
+<!--//모듈 설명-->
+<p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_plusad}</p>
+
+<!--//탭메뉴-->
+<ul class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act == 'dispPlusadAdminstart'"><a href="{getUrl('','module','admin','act','dispPlusadAdminstart')}">시작</a></li>
+	<!--@if($module_info->module_srl)--><!--//모듈 등록후 보임-->
+	<li class="x_active"|cond="$act=='dispPlusadAdmingrantset'"><a href="{getUrl('','module','admin','act','dispPlusadAdmingrantset')}">권한설정</a></li>
+	<li class="x_active"|cond="$act=='dispPlusadAdminskininfo'"><a href="{getUrl('','module','admin','act','dispPlusadAdminskininfo')}">스킨정보</a></li>
+	<li class="x_active"|cond="$act=='dispPlusadAdminlog'"><a href="{getUrl('','module','admin','act','dispPlusadAdminlog')}">광고로그</a></li>
+	<!--@end-->
+</ul>

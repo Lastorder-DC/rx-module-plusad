@@ -1,0 +1,12 @@
+<query id="update_ad" action="update">
+    <tables>
+        <table name="plusad" />
+    </tables>
+	<conditions>
+        <condition operation="equal" column="ad_srl" var="ad_srl" notnull="notnull" />
+    </conditions>
+    <columns>
+        <column name="ad_content" var="ad_content" />
+        <column name="ad_url" var="ad_url" />
+    </columns>
+</query>

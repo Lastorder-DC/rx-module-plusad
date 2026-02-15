@@ -1,0 +1,87 @@
+<div style="background-color:white; color:black; padding: 7px; border: 1px solid #FFF; border-radius: 2px;">
+<!--#include("_header.html")-->
+
+<load target="css/default.css" /><!--//css로드-->
+
+<h2>광고 등록 현황
+	<a href="{getUrl('','module','admin','act','dispPlusadAdminstart')}" target="_blank" style="float:right; font-size:11px" cond="$grant->manager"><b class="plusad_btn_black plusad_effect">+관리자모드</b></a>
+</h2>
+
+<a>현재 진행중인 광고 : {number_format($total_count)}개</a>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div class="plusad_div_line"></div>
+
+<!-- 광고현황 -->
+<table class="ad_table" cellpadding='10' cellspacing="0" border='0'>
+    <thead bgcolor="efefef">
+        <tr>
+            <th scope="col">번호</th>
+			<th scope="col">{$lang->nick_name}</th>
+            <th scope="col">광고내용</th>
+			<th scope="col">광고등록시간</th>
+			<!--// <th scope="col">광고종료시간</th> -->
+			<th scope="col">광고기간</th>
+			<th scope="col">남은시간</th>
+			<th scope="col">링크주소</th>
+			<th scope="col" cond="$grant->manager">변경</th>
+        </tr>
+    </thead>
+	<tbody>   
+    <!--@foreach($ad_list as $no => $ad_info)-->
+		<tr>
+            <td class="text_center">{$no}</td>
+            <td class="text_center"><a class="member_{$ad_info->member_srl}" href="#" onclick="return false">{$ad_info->nick_name}</a></td>
+            <td>
+				<a class="ad_text plusad_effect" href="{$ad_info->ad_url}" target="_blank" <!--@if($ad_info->color == 'red')-->style="color:tomato;"<!--@end--><!--@if($ad_info->color == 'green')-->style="color:lightseagreen;"<!--@end--><!--@if($ad_info->color == 'blue')-->style="color:dodgerblue;"<!--@end-->>
+				<!--@if($ad_info->bold == 'yes')--><b>{cut_str($ad_info->ad_content,40)}</b><!--@else-->{cut_str($ad_info->ad_content,40)}<!--@end-->
+				</a>
+			</td>
+            <td class="text_center">{$ad_info->regdate}</td>
+			<!--// <td>{$ad_info->enddate}</td> -->
+            <td class="text_center">{$ad_info->time} 시간</td>
+			<td class="text_center">
+				{@ $mintime = intval((strtotime($ad_info->enddate) - time()) /60)} 
+				<!--@if($mintime > 300)--><a style="color:black;">{$mintime} 분</a><!--@end-->
+				<!--@if($mintime < 300 && $mintime > 60)--><a style="color:blue;">{$mintime} 분</a><!--@end-->
+				<!--@if($mintime < 60)--><a style="color:red;">{$mintime} 분</a><!--@end-->
+			</td>
+			<td class="text_center">{cut_str($ad_info->ad_url,20)}</td>
+			<td class="text_center" cond="$grant->manager">
+				<a class="ad_text plusad_effect" href="{getUrl('act','dispPlusadUpdate','ad_srl',$ad_info->ad_srl,'ad_content',$ad_info->ad_content,'ad_url',$ad_info->ad_url)}">수정</a>
+				<a class="ad_text plusad_effect" href="{getUrl('act','dispPlusaddelete','ad_srl',$ad_info->ad_srl,'success_return_url',getRequestUriByServerEnviroment())}" onclick="return confirm('정말삭제하시겠습니까?');">삭제</a>
+			</td>
+        </tr>
+    <!--@end-->
+    </tbody>
+</table>
+			
+
+<div class="plusad_div_line"></div>
+<!--// 페이지 네비게이션 -->
+<div class="ad_page_navi">
+	<a class="plusad_effect" style="margin-right:8px;" href="{getUrl('page','','module_srl','')}" >{$lang->first_page}</a> 
+	<!--@while($page_no = $page_navigation->getNextPage())-->
+		<!--@if($page == $page_no)-->
+			<a class="pg_select">{$page_no}</a>
+		<!--@else-->
+			<a class="plusad_effect" href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a> 
+		<!--@end-->
+	<!--@end--><a class="plusad_effect" style="margin-left:8px;" href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" >{$lang->last_page}</a>
+</div>
+
+
+<div class="plusad_div_line"></div>
+<a href="{getUrl('act','dispPlusadlistuser')}"><button class="plusad_btn_green">내광고보기</button></a>
+<a href="{getUrl('act','dispPlusadwrite')}"><button class="plusad_btn_blue">광고등록</button></a>
+
+
+
+
+<div style="clear:both;">
+<!--#include("_footer.html")-->
+</div>
+</div>

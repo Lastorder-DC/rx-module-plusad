@@ -1,0 +1,72 @@
+<!--#include("./header.html")-->
+
+<!--//메세지창-->
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<caption><strong>전체:{number_format($total_count)} 페이지:{number_format($page)}/{number_format($total_page)}</strong></caption>
+<!-- 광고현황 -->
+<table cellpadding='4' cellspacing="0" border='0' style="width:100%">
+    <thead bgcolor="efefef">
+        <tr>
+            <th scope="col">번호</th>
+			<th scope="col">닉네임</th>
+            <th scope="col">광고내용</th>
+			<th scope="col">광고등록시간</th>
+			<!--// <th scope="col">광고종료시간</th> -->
+			<th scope="col">광고기간</th>
+			<th scope="col">남은시간</th>
+			<th scope="col">링크주소</th>
+			<th scope="col">굵기</th>
+			<th scope="col">색상</th>
+			<th scope="col">등록포인트</th>
+			<th scope="col">누적포인트</th>
+			<th scope="col">삭제</th>
+        </tr>
+    </thead>
+	<tbody>   
+    <!--@foreach($ad_list as $no => $ad_info)-->
+		<tr style="font-size:12px;">
+            <td>{$no}</td>
+            <td><a class="member_{$ad_info->member_srl}" href="#" onclick="return false">{$ad_info->nick_name}</a></td>
+            <td><a href="{$ad_info->ad_url}" target="_blank"><!--@if($ad_info->bold == 'yes')--><b>{$ad_info->ad_content}</b><!--@else-->{$ad_info->ad_content}<!--@end--></a></td>
+            <td>{$ad_info->regdate}</td>
+			<!--// <td>{$ad_info->enddate}</td> -->
+            <td>{$ad_info->time} 시간</td>
+			<td>
+			{@ $mintime = intval((strtotime($ad_info->enddate) - time()) /60)} 
+			<!--@if($mintime > 0)--><a style="color:black;">{$mintime} 분</a><!--@end-->
+			<!--@if($mintime < 0)--><a style="color:red;">[광고종료]</a><!--@end-->
+			</td>
+			<td>{cut_str($ad_info->ad_url,20)}</td>
+			<td><!--@if($ad_info->bold == 'yes')--><b>사용</b><!--@else-->미사용<!--@end--></td>
+			<td><a <!--@if($ad_info->color == 'red')-->style="color:tomato;"<!--@end--><!--@if($ad_info->color == 'green')-->style="color:lightseagreen;"<!--@end--><!--@if($ad_info->color == 'blue')-->style="color:dodgerblue;"<!--@end--><!--@if($ad_info->color == 'no')-->style="color:gray"<!--@end-->>{$ad_info->color}</a></td>
+			<td>{$ad_info->ad_point}</td>
+			<td>{$ad_info->total_point}</td>
+			<td><a href="{getUrl('act','dispPlusadAdminlogdelete','ad_srl',$ad_info->ad_srl,'success_return_url',getRequestUriByServerEnviroment())}" onclick="return confirm('정말삭제하시겠습니까?');">삭제</a></td>
+        </tr>
+    <!--@end-->
+    </tbody>
+</table>
+
+
+<!--// 페이지 네비게이션 -->
+<div style="text-align:center; margin-top:10px;">
+	<a style="margin-right:8px;" href="{getUrl('page','','module_srl','')}" >{$lang->first_page}</a> 
+	<!--@while($page_no = $page_navigation->getNextPage())-->
+		<!--@if($page == $page_no)-->
+			<a style="font-weight:bold; color:red; padding:5px;">{$page_no}</a>
+		<!--@else-->
+			<a style="font-weight:bold; padding:5px;" href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a> 
+		<!--@end-->
+	<!--@end-->
+	<a style="margin-left:8px;" href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" >{$lang->last_page}</a>
+</div>
+
+
+
+<br/>
+<a href="{getUrl('act','dispPlusadAdminlogdeleteall','success_return_url',getRequestUriByServerEnviroment())}" onclick="return confirm('현재 진행중인 광고도 전부 삭제됩니다. 정말 삭제하시겠습니까?');"><button class="x_btn x_btn-primary">전체삭제</button></a>
+<a href="{getUrl('act','dispPlusadAdminlogdeletelast','success_return_url',getRequestUriByServerEnviroment())}" onclick="return confirm('정말 삭제하시겠습니까?');"><button class="x_btn x_btn-primary">종료된 광고삭제</button></a>
+

@@ -1,0 +1,121 @@
+<!--#include("./header.html")-->
+
+<block cond="!$module_info->module_srl">
+<div class="x_alert x_alert-info">모듈을 먼저 등록해주세요</div>
+</block>
+
+<!--//모듈 등록 후-->
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" class="x_form-horizontal" method="post">
+	<input type="hidden" name="module" value="plusad" />
+	<input type="hidden" name="act" value="procPlusadAdminstart" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<!--//기본설정-->
+	<section class="section">
+		<h1>{$lang->subtitle_primary}</h1>
+		<!--//mid 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">{$lang->mid}</label>
+			<div class="x_controls">
+				<input type="text" name="mid" id="mid" value="<!--@if($module_info->mid)-->{$module_info->mid}<!--@else-->plusad<!--@end-->" />
+				<a href="#module_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="module_name_help" class="x_help-block" hidden>{$lang->about_mid}</p>
+			</div>
+		</div>
+		<!--//브라우저 타이틀 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="lang_browser_title">{$lang->browser_title}</label>
+			<div class="x_controls">
+				<input type="text" name="browser_title" id="browser_title" value="{$module_info->browser_title}" class="lang_code" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+		<!--//레이아웃 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="layout_srl">{$lang->layout}</label>
+			<div class="x_controls">
+				<select name="layout_srl" id="layout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$layout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->layout_srl== $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#layout_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="layout_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<!--//모듈 스킨 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="skin">{$lang->skin}</label>
+			<div class="x_controls">
+				<select name="skin" id="skin" style="width:auto">
+					<option loop="$skin_list=> $key, $val" value="{$key}" selected="selected"|cond="$module_info->skin== $key">{$val->title}</option>
+				</select>
+			</div>
+		</div>
+		<!--//상단 텍스트 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="lang_header_text">{$lang->header_text}</label>
+			<div class="x_controls">
+				<textarea name="header_text" id="header_text" class="lang_code" rows="8" cols="42" placeholder="{$lang->about_header_text}"><!--@if(strpos($module_info->header_text, '$user_lang->') === false)-->{$module_info->header_text}<!--@else-->{htmlspecialchars($module_info->header_text)}<!--@end--></textarea>
+				<a href="#header_text_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="header_text_help" class="x_help-block" hidden>{$lang->about_header_text}</p>
+			</div>
+		</div>
+		<!--//하단 텍스트 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="lang_footer_text">{$lang->footer_text}</label>
+			<div class="x_controls">
+				<textarea name="footer_text" id="footer_text" class="lang_code" rows="8" cols="42" placeholder="{$lang->about_footer_text}"><!--@if(strpos($module_info->footer_text, '$user_lang->') === false)-->{$module_info->footer_text}<!--@else-->{htmlspecialchars($module_info->footer_text)}<!--@end--></textarea>
+				<a href="#footer_text_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="footer_text_help" class="x_help-block" hidden>{$lang->about_footer_text}</p>
+			</div>
+		</div>
+	</section>
+	<!--//광고설정-->
+	<section class="section">
+		<h1>광고 세부 설정</h1>
+		<!--//광고 진행시간 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="adpoint">광고 진행시간 설정</label>
+			<div class="x_controls">
+				<input type="text" name="adtime" id="adtime" value="<!--@if($module_info->adtime)-->{$module_info->adtime}<!--@else-->1,3,6,12,24<!--@end-->" />
+				<a href="#adtime_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="adtime_help" class="x_help-block" hidden>허용 할 광고 진행 시간을 입력하세요. 시간 단위이며, 쉼표(,)로 구분하시면 됩니다.</p>
+			</div>
+		</div>
+		<!--//시간당 소모포인트 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="adpoint">시간당 소모포인트</label>
+			<div class="x_controls">
+				<input type="text" name="adpoint" id="adpoint" value="<!--@if($module_info->adpoint)-->{$module_info->adpoint}<!--@else-->10<!--@end-->" />
+				<a href="#adpoint_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="adpoint_help" class="x_help-block" hidden>광고 등록시 시간당 소모할 포인트를 설정해주세요 기본값은 10 입니다</p>
+			</div>
+		</div>
+		<!--//굵기효과 포인트 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="boldpoint">굵기효과 소모포인트</label>
+			<div class="x_controls">
+				<input type="text" name="boldpoint" id="boldpoint" value="<!--@if($module_info->boldpoint)-->{$module_info->boldpoint}<!--@else-->100<!--@end-->" />
+				<a href="#boldpoint_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="boldpoint_help" class="x_help-block" hidden>굵기효과 사용시 소모할 포인트를 설정해주세요 기본값은 100 입니다</p>
+			</div>
+		</div>
+		<!--//색상효과 포인트 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="colorpoint">색상효과 소모포인트</label>
+			<div class="x_controls">
+				<input type="text" name="colorpoint" id="colorpoint" value="<!--@if($module_info->colorpoint)-->{$module_info->colorpoint}<!--@else-->300<!--@end-->" />
+				<a href="#colorpoint_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="colorpoint_help" class="x_help-block" hidden>색상효과 사용시 소모할 포인트를 설정해주세요 기본값은 300 입니다</p>
+			</div>
+		</div>
+	</section>
+	<!--//저장버튼-->
+	<div class="x_clearfix btnArea">
+		<span class="x_pull-right"><input class="x_btn x_btn-primary" type="submit" value="{$lang->cmd_save}" /></span>
+	</div>
+</form>

@@ -1,0 +1,8 @@
+<query id="deleteadall" action="delete">
+    <tables>
+        <table name="plusad" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+</query>

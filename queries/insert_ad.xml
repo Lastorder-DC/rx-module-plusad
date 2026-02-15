@@ -1,0 +1,19 @@
+<query id="insert_ad" action="insert">
+    <tables>
+        <table name="plusad" />
+    </tables>
+    <columns>
+        <column name="ad_srl" var="ad_srl" />
+        <column name="ad_content" var="ad_content" />
+        <column name="ad_url" var="ad_url" />
+		<column name="member_srl" var="member_srl" />
+		<column name="nick_name" var="nick_name" />
+        <column name="regdate" var="regdate" />
+        <column name="enddate" var="enddate" />
+        <column name="time" var="time" />
+        <column name="bold" var="bold" />
+        <column name="color" var="color" />
+        <column name="ad_point" var="ad_point" />
+        <column name="total_point" var="total_point" />
+    </columns>
+</query>

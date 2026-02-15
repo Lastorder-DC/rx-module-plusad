@@ -1,0 +1,11 @@
+<query id="deleteadlast" action="delete">
+    <tables>
+        <table name="plusad" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+	<conditions>
+		<condition operation="less" column="enddate" var="nowdate" />
+	</conditions>
+</query>

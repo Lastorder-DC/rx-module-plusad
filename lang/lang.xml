@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+    <item name="about_plusad">
+        <value xml:lang="ko"><![CDATA[포인트를 사용하여 광고를 등록 하고 이를 위젯으로 출력하는 모듈입니다]]></value>
+    </item>
+    <item name="ad_content">
+        <value xml:lang="ko"><![CDATA[광고내용]]></value>
+    </item>
+    <item name="ad_url">
+        <value xml:lang="ko"><![CDATA[링크주소]]></value>
+    </item>
+</lang>
