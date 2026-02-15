@@ -102,7 +102,7 @@ class plusadController extends plusad
 		}
 
 		// Check user points
-		$oPointModel = getModel('point');
+		$oPointModel = pointModel::getInstance();
 		$current_point = $oPointModel->getPoint($logged_info->member_srl);
 
 		if ($args->ad_point > $current_point)
@@ -130,7 +130,7 @@ class plusadController extends plusad
 		}
 
 		// Deduct points
-		$oPointController = getController('point');
+		$oPointController = pointController::getInstance();
 		$oPointController->setPoint($logged_info->member_srl, $args->ad_point, 'minus');
 
 		// Set success message and redirect
