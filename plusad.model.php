@@ -26,7 +26,7 @@ class plusadModel extends plusad
 			return;
 		}
 
-		$oModuleModel = getModel('module');
+		$oModuleModel = moduleModel::getInstance();
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($output->data->module_srl);
 
 		return $module_info;
