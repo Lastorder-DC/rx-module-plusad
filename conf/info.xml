@@ -2,22 +2,13 @@
 <module version="0.2">
     <title xml:lang="ko">한줄광고 모듈</title>
     <description xml:lang="ko">포인트를 사용해 한줄 광고를 등록하고 이를 위젯으로 출력시키는 모듈입니다. </description>
-    <version>0.5</version>
-    <date>2013-12-26</date>
+    <version>1.0</version>
+    <date>2026-02-21</date>
     <category>service</category>
 	<author email_address="samswnlee@naver.com" link="http://www.xecenter.com/">
         <name xml:lang="ko">쿡래빗</name>
     </author>
+    <author email_address="lastorder@lastorder.xyz" link="https://lastorder.xyz/">
+        <name xml:lang="ko">Lastorder</name>
+    </author>
 </module>
-
-<!--
-<caregory> 요소
-service : 서비스관리
-member : 회원관리
-content : 정보관리
-construction : 사이트설정
-utility : 기능설정
-accessory : 부가기능 설정
-system : 시스템 관리/설정
-package : cafeXE, textyle 등의 패키지 모듈
--->

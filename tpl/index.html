@@ -113,6 +113,15 @@
 				<p id="colorpoint_help" class="x_help-block" hidden>색상효과 사용시 소모할 포인트를 설정해주세요 기본값은 300 입니다</p>
 			</div>
 		</div>
+		<!--//허용 도메인 리스트-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="domain_list">허용 도메인 리스트</label>
+			<div class="x_controls">
+				<textarea name="domain_list" id="domain_list" rows="8" cols="42" placeholder="등록을 허용할 도메인 목록을 입력해주세요.">{$module_info->domain_list}</textarea>
+				<a href="#domain_list_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="domain_list_help" class="x_help-block" hidden>등록을 허용할 도메인 목록을 한줄에 하나씩 입력해주세요. *.domain.com 같은 형태도 허용됩니다.</p>
+			</div>
+		</div>
 	</section>
 	<!--//저장버튼-->
 	<div class="x_clearfix btnArea">

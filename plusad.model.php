@@ -2,7 +2,6 @@
 
 /**
  * @class  plusadModel
- * @author [Author Name]
  * @brief  PlusAd module model class
  */
 class plusadModel extends plusad
@@ -26,9 +25,7 @@ class plusadModel extends plusad
 			return;
 		}
 
-		$oModuleModel = moduleModel::getInstance();
-		$module_info = $oModuleModel->getModuleInfoByModuleSrl($output->data->module_srl);
-
+		$module_info = moduleModel::getModuleInfoByModuleSrl($output->data->module_srl);
 		return $module_info;
 	}
 

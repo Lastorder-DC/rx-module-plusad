@@ -2,7 +2,6 @@
 
 /**
  * @class  plusadController
- * @author [Author Name]
  * @brief  PlusAd module user controller class
  */
 class plusadController extends plusad
@@ -20,30 +19,28 @@ class plusadController extends plusad
 	 */
 	function getWhitelistRegex()
 	{
-		// TODO: Move this list to module configuration
-		$whitelist = [
-			'yeokka.com',
-			'*.yeokka.com',
-			'*.youtube.com',
-			'chzzk.naver.com',
-			'yeokka.kro.kr',
-			'fanbinit.us',
-			'*.fanbinit.us',
-			'cafe.naver.com',
-			'playeternalreturn.com',
-			'pokerogue.net',
-			'pokerogue.cc',
-			'docs.google.com',
-			'*.blizzard.com',
-			'*.youtube.com',
-			'youtu.be'
-		];
+		$whitelist = [];
+		if($this->module_info->domain_list)
+		{
+			$whitelist = explode("\n", str_replace("\r", "", $this->module_info->domain_list));
+		}
 
 		$result = [];
 		foreach ($whitelist as $domain)
 		{
-			$result[] = str_replace('\*\.', '[a-z0-9-]+\.', preg_quote($domain, '%'));
+			$domain = trim($domain);
+			if(!$domain)
+			{
+				continue;
+			}
+			$result[] = str_replace('\*', '[-a-zA-Z0-9._]*', preg_quote($domain, '%'));
 		}
+
+		if(!count($result))
+		{
+			return '/^$/';
+		}
+
 		return '%^(?:https?:)?//(' . implode('|', $result) . ')%';
 	}
 
@@ -81,9 +78,9 @@ class plusadController extends plusad
 		$minus_point = $args->time * $this->module_info->adpoint; // Time based point
 		$bold_point = ($args->bold == 'yes') ? $this->module_info->boldpoint : 0; // Bold effect point
 		$color_point = ($args->color != 'no') ? $this->module_info->colorpoint : 0; // Color effect point
-
 		$args->ad_point = $minus_point + $bold_point + $color_point;
 
+		// Set ad URL if null
 		if (!$args->ad_url)
 		{
 			$args->ad_url = '';
@@ -95,6 +92,12 @@ class plusadController extends plusad
 			return new BaseObject(-1, '광고 허용시간을 초과하였습니다.');
 		}
 
+		// Check min allowed time
+		if ($args->time <= 0)
+		{
+			return new BaseObject(-1, '잘못된 광고 시간입니다.');
+		}
+
 		// Check whitelist
 		if (!$this->matchWhitelist($args->ad_url))
 		{
@@ -102,9 +105,7 @@ class plusadController extends plusad
 		}
 
 		// Check user points
-		$oPointModel = pointModel::getInstance();
-		$current_point = $oPointModel->getPoint($logged_info->member_srl);
-
+		$current_point = pointModel::getPoint($logged_info->member_srl);
 		if ($args->ad_point > $current_point)
 		{
 			return new BaseObject(-1, '포인트가 부족합니다');
@@ -126,12 +127,11 @@ class plusadController extends plusad
 		$output = executeQuery("plusad.insert_ad", $args);
 		if (!$output->toBool())
 		{
-			return new BaseObject(-1, '광고등록에 실패하였습니다.');
+			return new BaseObject(-1, '광고 등록에 실패하였습니다.');
 		}
 
 		// Deduct points
-		$oPointController = pointController::getInstance();
-		$oPointController->setPoint($logged_info->member_srl, $args->ad_point, 'minus');
+		pointController::setPoint($logged_info->member_srl, $args->ad_point, 'minus');
 
 		// Set success message and redirect
 		$this->setMessage('광고 등록 완료');
@@ -151,7 +151,7 @@ class plusadController extends plusad
 		$output = executeQuery("plusad.update_ad", $args);
 		if (!$output->toBool())
 		{
-			return new BaseObject(-1, '광고수정에 실패하였습니다.');
+			return new BaseObject(-1, '광고 수정에 실패하였습니다.');
 		}
 
 		// Set success message and redirect
