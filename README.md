@@ -21,7 +21,8 @@
 ## 요구 사항
 
 - [라이믹스(Rhymix)](https://github.com/rhymix/rhymix) CMS
-- **포인트 모듈** 설치 및 활성화 필요
+- **포인트 모듈** (라이믹스 기본 내장 모듈이므로 별도 설치 불필요)
+- **[한줄광고 위젯](https://github.com/Lastorder-DC/rx-widget-plusad)** (광고 목록 출력을 위해 별도 설치 필요)
 
 ---
 
@@ -33,7 +34,7 @@
    (라이믹스 루트)/modules/plusad/
    ```
 3. 라이믹스 관리자 페이지 → **모듈** 메뉴에서 **한줄광고 모듈**을 등록합니다.
-4. 위젯을 원하는 레이아웃에 추가하여 광고 목록을 출력합니다.
+4. **[한줄광고 위젯](https://github.com/Lastorder-DC/rx-widget-plusad)**을 별도로 설치한 뒤, 원하는 레이아웃에 추가하여 광고 목록을 출력합니다.
 
 ---
 
