@@ -33,7 +33,7 @@
    (라이믹스 루트)/modules/plusad/
    ```
 3. 관리자 대시보드에서 DB 생성 및 업데이트를 진행합니다.
-4. **[한줄광고 위젯](https://github.com/Lastorder-DC/rx-widget-plusad)**을 별도로 설치한 뒤, 위젯을 원하는 위치에 추가합니다.
+4. [한줄광고 위젯](https://github.com/Lastorder-DC/rx-widget-plusad)을 별도로 설치한 뒤, 위젯을 원하는 위치에 추가합니다.
 
 ---
 
