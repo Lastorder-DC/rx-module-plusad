@@ -1,0 +1,11 @@
+<query id="getad" action="select">
+    <tables>
+        <table name="plusad" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+	<conditions>
+        <condition operation="equal" column="ad_srl" var="ad_srl" filter="number" notnull="notnull" />
+    </conditions>
+</query>

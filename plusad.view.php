@@ -76,6 +76,10 @@ class plusadView extends plusad
 		// 목록 세팅
 		Context::set('ad_list', $output->data);
 
+		// 취소 가능 기준 비율 세팅 (기본 10%)
+		$cancel_threshold = $this->module_info->cancel_threshold_percent ? intval($this->module_info->cancel_threshold_percent) : 10;
+		Context::set('cancel_threshold_percent', $cancel_threshold);
+
 		// 페이지 세팅
 		Context::set('total_count', $output->total_count);
 		Context::set('total_page', $output->total_page);

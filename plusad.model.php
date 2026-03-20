@@ -30,6 +30,23 @@ class plusadModel extends plusad
 	}
 
 	/**
+	 * @brief Get single ad by ad_srl
+	 * @param int $ad_srl Ad serial number
+	 * @return object|null Ad data
+	 */
+	function getad($ad_srl)
+	{
+		$args = new stdClass();
+		$args->ad_srl = $ad_srl;
+		$output = executeQuery('plusad.getad', $args);
+		if ($output->data)
+		{
+			return $output->data;
+		}
+		return null;
+	}
+
+	/**
 	 * @brief Get valid ad list
 	 * @param object $args Arguments
 	 * @return Object Query result
