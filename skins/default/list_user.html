@@ -52,7 +52,14 @@
 			<td class="text_center">{cut_str($ad_info->ad_url,20)}</td>
 			<td class="text_center" cond="$logged_info->member_srl == $ad_info->member_srl">
 				<a class="ad_text plusad_effect" href="{getUrl('act','dispPlusadUpdate','ad_srl',$ad_info->ad_srl,'ad_content',$ad_info->ad_content,'ad_url',$ad_info->ad_url)}">수정</a>
+				{@ $total_sec = strtotime($ad_info->enddate) - strtotime($ad_info->regdate)}
+				{@ $elapsed_sec = time() - strtotime($ad_info->regdate)}
+				{@ $elapsed_pct = ($total_sec > 0) ? round(($elapsed_sec / $total_sec) * 100) : 100}
+				<!--@if($elapsed_pct < $cancel_threshold_percent && $mintime > 0)-->
+				<a class="ad_text plusad_effect" style="color:dodgerblue;" href="{getUrl('act','procPlusadCancel','ad_srl',$ad_info->ad_srl,'success_return_url',getRequestUriByServerEnviroment())}" onclick="return confirm('광고를 취소하시겠습니까? 수수료를 제외한 포인트가 환불됩니다.');">취소</a>
+				<!--@else-->
 				<a class="ad_text plusad_effect" href="{getUrl('act','dispPlusaddelete','ad_srl',$ad_info->ad_srl,'success_return_url',getRequestUriByServerEnviroment())}" onclick="return confirm('정말삭제하시겠습니까?');">삭제</a>
+				<!--@end-->
 			</td>
         </tr>
     <!--@end-->

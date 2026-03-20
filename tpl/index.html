@@ -122,6 +122,24 @@
 				<p id="domain_list_help" class="x_help-block" hidden>등록을 허용할 도메인 목록을 한줄에 하나씩 입력해주세요. *.domain.com 같은 형태도 허용됩니다.</p>
 			</div>
 		</div>
+		<!--//광고 취소 허용 기준(%) 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="cancel_threshold_percent">광고 취소 허용 기준(%)</label>
+			<div class="x_controls">
+				<input type="text" name="cancel_threshold_percent" id="cancel_threshold_percent" value="<!--@if($module_info->cancel_threshold_percent)-->{$module_info->cancel_threshold_percent}<!--@else-->10<!--@end-->" />
+				<a href="#cancel_threshold_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="cancel_threshold_help" class="x_help-block" hidden>광고 등록 후 전체 시간 대비 경과 시간이 이 비율(%) 미만일 때 취소가 가능합니다. 기본값은 10 입니다.</p>
+			</div>
+		</div>
+		<!--//광고 취소 수수료(%) 설정-->
+		<div class="x_control-group">
+			<label class="x_control-label" for="cancel_fee_percent">광고 취소 수수료(%)</label>
+			<div class="x_controls">
+				<input type="text" name="cancel_fee_percent" id="cancel_fee_percent" value="<!--@if($module_info->cancel_fee_percent)-->{$module_info->cancel_fee_percent}<!--@else-->10<!--@end-->" />
+				<a href="#cancel_fee_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="cancel_fee_help" class="x_help-block" hidden>광고 취소 시 환불 포인트에서 추가로 차감할 수수료 비율(%)입니다. 기본값은 10 입니다.</p>
+			</div>
+		</div>
 	</section>
 	<!--//저장버튼-->
 	<div class="x_clearfix btnArea">
