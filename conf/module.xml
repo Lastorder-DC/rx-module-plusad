@@ -30,7 +30,7 @@
         <action name="dispPlusadwrite" type="view"  /> <!--//광고등록-->
         <action name="procPlusadwrite" type="controller"  /> <!--//광고등록-->
 		<action name="dispPlusaddelete" type="view"  /> <!--//광고삭제-->
-		<action name="procPlusadCancel" type="controller" /> <!--//광고취소(환불)-->
+		<action name="dispPlusadCancel" type="view" /> <!--//광고취소(환불)-->
 		<action name="dispPlusadUpdate" type="view" /> <!--//광고수정-->
 		<action name="procPlusadUpdate" type="controller" /> <!--//광고수정-->
 	</actions>
