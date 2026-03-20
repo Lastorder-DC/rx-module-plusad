@@ -192,13 +192,7 @@ class plusadController extends plusad
 
 		// Calculate refund: ad_point minus elapsed% minus fee%
 		$deduction_percent = $elapsed_percent + $cancel_fee;
-		$refund_point = intval($ad_info->ad_point * (100 - $deduction_percent) / 100);
-
-		// Ensure refund is not negative
-		if ($refund_point < 0)
-		{
-			$refund_point = 0;
-		}
+		$refund_point = max(0, intval($ad_info->ad_point * (100 - $deduction_percent) / 100));
 
 		// Delete the ad
 		$args = new stdClass();
