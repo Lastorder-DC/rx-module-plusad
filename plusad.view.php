@@ -184,20 +184,20 @@ class plusadView extends plusad
 			return new BaseObject(-1, '광고 시간 정보가 올바르지 않습니다.');
 		}
 
-		$elapsed_percent = round(($elapsed_seconds / $total_seconds) * 100);
+		$elapsed_percent = ($elapsed_seconds / $total_seconds) * 100;
 
 		// Get cancel threshold and fee from settings (default 10%)
 		$cancel_threshold = $this->module_info->cancel_threshold_percent ? intval($this->module_info->cancel_threshold_percent) : 10;
 		$cancel_fee = $this->module_info->cancel_fee_percent ? intval($this->module_info->cancel_fee_percent) : 10;
 
 		// Check if within cancellation window
-		if ($elapsed_percent >= $cancel_threshold)
+		if ($elapsed_percent > $cancel_threshold)
 		{
-			return new BaseObject(-1, sprintf('광고 등록 후 전체 시간의 %d%% 이상 경과하여 취소할 수 없습니다.', $cancel_threshold));
+			return new BaseObject(-1, sprintf('광고 등록 후 전체 시간의 %d%% 초과 경과하여 취소할 수 없습니다.', $cancel_threshold));
 		}
 
 		// Calculate refund: ad_point minus elapsed% minus fee%
-		$deduction_percent = $elapsed_percent + $cancel_fee;
+		$deduction_percent = round($elapsed_percent) + $cancel_fee;
 		$refund_point = max(0, intval($ad_info->ad_point * (100 - $deduction_percent) / 100));
 
 		// Delete the ad
