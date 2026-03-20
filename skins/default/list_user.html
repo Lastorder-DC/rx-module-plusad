@@ -43,11 +43,14 @@
 			<!--// <td>{$ad_info->enddate}</td> -->
             <td class="text_center">{$ad_info->time} 시간</td>
 			<td class="text_center">
-				{@ $mintime = intval((strtotime($ad_info->enddate) - time()) /60)} 
-				<!--@if($mintime > 300)--><a style="color:black;">{$mintime} 분</a><!--@end-->
-				<!--@if($mintime < 300 && $mintime > 60)--><a style="color:blue;">{$mintime} 분</a><!--@end-->
-				<!--@if($mintime < 60 && $mintime > 0)--><a style="color:red;">{$mintime} 분</a><!--@end-->
-				<!--@if($mintime < 0)--><a style="color:red;">[광고종료]</a><!--@end-->
+                {@ $mintime = intval((strtotime($ad_info->enddate) - time()) /60)}
+                {@ $days = intval($mintime / 1440)}
+                {@ $hours = intval(($mintime % 1440) / 60)}
+                {@ $mins = $mintime % 60}
+                <!--@if($mintime >= 300)--><a style="color:black;"><!--@if($days > 0)-->{$days}일 {$hours}시간 {$mins}분<!--@end--><!--@if($days == 0)-->{$hours}시간 {$mins}분<!--@end--></a><!--@end-->
+                <!--@if($mintime < 300 && $mintime >= 60)--><a style="color:blue;"><!--@if($days > 0)-->{$days}일 {$hours}시간 {$mins}분<!--@end--><!--@if($days == 0)-->{$hours}시간 {$mins}분<!--@end--></a><!--@end-->
+                <!--@if($mintime < 60 && $mintime > 0)--><a style="color:red;">{$mintime} 분</a><!--@end-->
+                <!--@if($mintime < 0)--><a style="color:red;">[광고종료]</a><!--@end-->
 			</td>
 			<td class="text_center">{cut_str($ad_info->ad_url,20)}</td>
 			<td class="text_center" cond="$logged_info->member_srl == $ad_info->member_srl">
