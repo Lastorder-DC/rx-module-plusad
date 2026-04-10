@@ -2,8 +2,8 @@
 <module version="0.2">
     <title xml:lang="ko">한줄광고 모듈</title>
     <description xml:lang="ko">포인트를 사용해 한줄 광고를 등록하고 관리하는 모듈입니다. 광고 출력을 위해서 별도 위젯 설치가 필요합니다.</description>
-    <version>1.1.0</version>
-    <date>2026-03-20</date>
+    <version>1.2.0</version>
+    <date>2026-04-10</date>
     <category>service</category>
 	<author email_address="samswnlee@naver.com" link="http://www.xecenter.com/">
         <name xml:lang="ko">쿡래빗</name>
