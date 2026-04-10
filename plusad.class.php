@@ -67,17 +67,10 @@ class plusad extends ModuleObject
 	 */
 	protected function isPointModuleEnabled(): bool
 	{
-		if (!class_exists('pointModel') || !class_exists('pointController'))
+		$config = Point::getConfig();
+		if ($config && isset($config->able_module) && $config->able_module !== 'Y')
 		{
 			return false;
-		}
-		if (method_exists('moduleModel', 'getModuleConfig'))
-		{
-			$config = moduleModel::getModuleConfig('point');
-			if ($config && isset($config->able_module) && $config->able_module !== 'Y')
-			{
-				return false;
-			}
 		}
 		return true;
 	}

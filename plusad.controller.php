@@ -88,7 +88,7 @@ class plusadController extends plusad
 
 		// Check max allowed time (use the maximum of the configured ad times)
 		$allowed_times = array_filter(array_map(function($t) { return intval(trim($t)); }, explode(',', $this->module_info->adtime)));
-		$max_allowed_time = !empty($allowed_times) ? max($allowed_times) : 128;
+		$max_allowed_time = max($allowed_times);
 		if ($args->time > $max_allowed_time)
 		{
 			return new BaseObject(-1, '광고 허용시간을 초과하였습니다.');
