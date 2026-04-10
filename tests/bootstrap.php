@@ -167,6 +167,11 @@ class moduleModel
 		$info->module_srl = $module_srl;
 		return $info;
 	}
+
+	public static function getModuleConfig($module)
+	{
+		return isset(TestHelper::$moduleConfigs[$module]) ? TestHelper::$moduleConfigs[$module] : null;
+	}
 }
 
 /**
@@ -177,12 +182,14 @@ class TestHelper
 	public static $queries = [];
 	public static $pointCalls = [];
 	public static $executeQueryResults = [];
+	public static $moduleConfigs = [];
 
 	public static function reset()
 	{
 		self::$queries = [];
 		self::$pointCalls = [];
 		self::$executeQueryResults = [];
+		self::$moduleConfigs = [];
 	}
 
 	public static function setQueryResult($queryId, $result)

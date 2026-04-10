@@ -212,7 +212,7 @@ class plusadView extends plusad
 		// Refund points
 		if ($refund_point > 0)
 		{
-			pointController::setPoint($logged_info->member_srl, $refund_point, 'add');
+			$this->changePoint($logged_info->member_srl, $refund_point, 'add');
 		}
 
 		// Set success message and redirect

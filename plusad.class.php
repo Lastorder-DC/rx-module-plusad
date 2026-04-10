@@ -60,4 +60,56 @@ class plusad extends ModuleObject
 	function recompileCache()
 	{
 	}
+
+	/**
+	 * @brief Check if the point module is enabled
+	 * @return bool
+	 */
+	protected function isPointModuleEnabled(): bool
+	{
+		if (!class_exists('pointModel') || !class_exists('pointController'))
+		{
+			return false;
+		}
+		if (method_exists('moduleModel', 'getModuleConfig'))
+		{
+			$config = moduleModel::getModuleConfig('point');
+			if ($config && isset($config->able_module) && $config->able_module !== 'Y')
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * @brief Get user point balance (returns PHP_INT_MAX if point module is disabled)
+	 * @param int $member_srl
+	 * @return int
+	 */
+	protected function getPointBalance(int $member_srl): int
+	{
+		if (!$this->isPointModuleEnabled())
+		{
+			// Return max int so the point-sufficiency check is always skipped
+			return PHP_INT_MAX;
+		}
+		return pointModel::getPoint($member_srl);
+	}
+
+	/**
+	 * @brief Change user points (skips if point module is disabled)
+	 * @param int $member_srl
+	 * @param int $point
+	 * @param string $mode
+	 * @return void
+	 */
+	protected function changePoint(int $member_srl, int $point, string $mode): void
+	{
+		if (!$this->isPointModuleEnabled())
+		{
+			return;
+		}
+		pointController::setPoint($member_srl, $point, $mode);
+	}
 }
