@@ -86,8 +86,10 @@ class plusadController extends plusad
 			$args->ad_url = '';
 		}
 
-		// Check max allowed time
-		if ($args->time > 128)
+		// Check max allowed time (use the maximum of the configured ad times)
+		$allowed_times = array_filter(array_map(function($t) { return intval(trim($t)); }, explode(',', $this->module_info->adtime)));
+		$max_allowed_time = !empty($allowed_times) ? max($allowed_times) : 128;
+		if ($args->time > $max_allowed_time)
 		{
 			return new BaseObject(-1, '광고 허용시간을 초과하였습니다.');
 		}
@@ -105,7 +107,7 @@ class plusadController extends plusad
 		}
 
 		// Check user points
-		$current_point = pointModel::getPoint($logged_info->member_srl);
+		$current_point = $this->getPointBalance($logged_info->member_srl);
 		if ($args->ad_point > $current_point)
 		{
 			return new BaseObject(-1, '포인트가 부족합니다');
@@ -131,7 +133,7 @@ class plusadController extends plusad
 		}
 
 		// Deduct points
-		pointController::setPoint($logged_info->member_srl, $args->ad_point, 'minus');
+		$this->changePoint($logged_info->member_srl, $args->ad_point, 'minus');
 
 		// Set success message and redirect
 		$this->setMessage('광고 등록 완료');
